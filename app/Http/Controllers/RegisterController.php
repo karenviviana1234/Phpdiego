@@ -16,6 +16,7 @@ class RegisterController extends Controller{
         //dd("#Bloquiemos_a_jk");
         return view('auth.register');
     }
+    //estore almacena
     public function store(Request $request){
         $request-> request-> add(['username' => Str::slug($request->username)]);
         $this->validate($request, [
@@ -34,7 +35,14 @@ class RegisterController extends Controller{
             'password'=> Hash::make($request->password)
             //'password'=> bcrypt($request->password)
         ]);
-        dd("Hola Perre vergue");
+
+        /* auth()->attempt([
+                'email' => $request->email,
+                'password' => $request->password
+            ]); */
+            //forma 2 
+           // auth()->attempt($request->only('email', 'password'));
+        return redirect()->route('post.index');
     }
 
 }
